@@ -23,8 +23,8 @@ App = {
   initContract: function() {
     $.getJSON('NiraToken.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract.
-      var TutorialTokenArtifact = data;
-      App.contracts.NiraToken = TruffleContract(TutorialTokenArtifact);
+      var NiraTokenArtifact = data;
+      App.contracts.NiraToken = TruffleContract(NiraTokenArtifact);
 
       // Set the provider for our contract.
       App.contracts.NiraToken.setProvider(App.web3Provider);
@@ -49,7 +49,7 @@ App = {
 
     console.log('Transfer ' + amount + ' NIRA to ' + toAddress);
 
-    var tutorialTokenInstance;
+    var niraTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -59,9 +59,9 @@ App = {
       var account = accounts[0];
 
       App.contracts.NiraToken.deployed().then(function(instance) {
-        tutorialTokenInstance = instance;
+        niraTokenInstance = instance;
 
-        return tutorialTokenInstance.transfer(toAddress, amount, {from: account});
+        return niraTokenInstance.transfer(toAddress, amount, {from: account});
       }).then(function(result) {
         alert('Transfer to ' + toAddress + ' was Successful!');
         return App.getBalances();
@@ -74,7 +74,7 @@ App = {
   getBalances: function() {
     console.log('Getting balances...');
 
-    var tutorialTokenInstance;
+    var niraTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -84,9 +84,9 @@ App = {
       var account = accounts[0];
       console.log(account);
       App.contracts.NiraToken.deployed().then(function(instance) {
-        tutorialTokenInstance = instance;
+        niraTokenInstance = instance;
 
-        return tutorialTokenInstance.balanceOf(account);
+        return niraTokenInstance.balanceOf(account);
       }).then(function(result) {
         balance = result.c[0];
 
